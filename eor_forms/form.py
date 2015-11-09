@@ -5,6 +5,8 @@ log = logging.getLogger(__name__)
 
 import datetime
 
+import peppercorn
+
 from .container import Mapping
 from .empty import empty
 
