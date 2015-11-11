@@ -54,13 +54,13 @@ class Mapping(object):
 
     @property
     def valid(self):
-        res = all(child.valid for child in self._children.values())
-
         for validator in self._validators:
             validator(self)
             # TODO
             #if self._errors:
             #    break  # TODO
+
+        res = all(child.valid for child in self._children.values())
 
         return res
 
