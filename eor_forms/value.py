@@ -34,6 +34,7 @@ class ValueField(object):
     @value.setter
     def value(self, val):
         self._value = val
+        self._serialized_value = self.serialize(val)
 
     @property
     def serialized_value(self):
