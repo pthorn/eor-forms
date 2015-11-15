@@ -99,7 +99,7 @@ class ValueField(object):
 
 
 class String(ValueField):
-    def __init__(self, name, strip=False, **kwargs):
+    def __init__(self, name, strip=True, **kwargs):
         self._strip = strip
         #kwargs.setdefault('renderer', )
         super().__init__(name, **kwargs)
