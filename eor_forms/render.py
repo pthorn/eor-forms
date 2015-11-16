@@ -12,7 +12,7 @@ class Input(object):
         self.type = type
 
     def render(self, field, rargs):
-        if 'type' not in rargs: rargs['type'] = self.type # TODO better design
+        rargs.setdefault('type', self.type)
         return Tag('input', name=field.name, value=field.cvalue, **rargs).render()
 
 
@@ -41,8 +41,12 @@ class Select(object):
         self.options = options
 
     def render(self, field, rargs):
-        r_options = [Tag('option', opt[1], value=opt[0], selected=(opt[0] == field.cvalue)) for opt in self.options]
-        select = Tag('select', name=field.name, multiple=self.multiple, **rargs).add(r_options)
+        r_options = [Tag('option', opt[1], value=opt[0], selected=(opt[0] == field.cvalue))
+                     for opt in self.options]
+
+        rargs.setdefault('multiple', self.multiple)
+
+        select = Tag('select', name=field.name, **rargs).add(r_options)
         return select.render()
 
 
@@ -63,7 +67,11 @@ class RadioButtons(object):
         self.options = options
 
     def render(self, field, rargs):
-        inputs = [Tag('li').add([Tag('input', type='radio', name=field.name, value=opt[0], checked=(opt[0] == field.cvalue)), Text(opt[1])]) for opt in self.options]
+        inputs = [Tag('li').add([
+            Tag('input', type='radio', name=field.name, value=opt[0], checked=(opt[0] == field.cvalue)),
+            Text(opt[1])
+        ]) for opt in self.options]
+
         return Tag('ul', **rargs).add(inputs).render()
 
 
@@ -72,7 +80,8 @@ class Checkbox(object):
     """
 
     def render(self, field, rargs):
-        return Tag('input', type='checkbox', name=field.name, value='true', checked=(field.cvalue == 'true')).render()
+        return Tag('input', type='checkbox', name=field.name,
+                   value='true', checked=(field.cvalue == 'true'), **rargs).render()
 
 
 class CheckBoxes(object):
