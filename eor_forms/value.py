@@ -83,6 +83,10 @@ class ValueField(object):
 
     # render
 
+    def renderer(self, renderer):
+        self._renderer = renderer
+        return self
+
     def render(self, **kwargs):
         return self._renderer.render(self, kwargs)
 
