@@ -4,6 +4,7 @@ import logging
 log = logging.getLogger(__name__)
 
 import re
+import decimal
 
 from .empty import empty
 from .render import Input
@@ -157,8 +158,25 @@ class Integer(ValueField):
         val = val.strip()
 
         try:
-            return empty if len(val) == 0 else int(val)  # TODO exception -> invalid
+            return empty if len(val) == 0 else int(val)
         except ValueError:
+            self.invalid(self._message)
+
+
+class Decimal(ValueField):
+    def __init__(self, name, message='Decimal expected', **kwargs):
+        self._message = message
+        super().__init__(name, **kwargs)
+
+    def serialize(self, val):
+        return '' if val is empty else str(val)
+
+    def deserialize(self, val):
+        val = val.strip()
+
+        try:
+            return empty if len(val) == 0 else decimal.Decimal(val)
+        except decimal.InvalidOperation:
             self.invalid(self._message)
 
 

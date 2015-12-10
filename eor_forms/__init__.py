@@ -2,7 +2,7 @@
 from .value import (
     ValueField,
     String, Phone,
-    Integer,
+    Integer, Decimal,
     Boolean,
     Date, DateTime
 )
