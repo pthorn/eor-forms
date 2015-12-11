@@ -47,8 +47,10 @@ class Mapping(object):
     @serialized_value.setter
     def serialized_value(self, val):
         for name, child in self._children.items():
-            if name in val:
+            try:
                 child.serialized_value = val[name]
+            except KeyError:
+                pass
 
     # validation
 
