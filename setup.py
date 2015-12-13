@@ -3,11 +3,6 @@ import os
 import re
 import sys
 
-#v = open(os.path.join(os.path.dirname(__file__), 'mako', '__init__.py'))
-#VERSION = re.compile(r".*__version__ = '(.*?)'", re.S).match(v.read()).group(1)
-#v.close()
-
-#readme = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
 if sys.version_info < (3, 3):
     raise Exception("eor-forms requires Python 3.3 or higher.")
@@ -23,12 +18,11 @@ setup(name='eor-forms',
     ],
     license='MIT',
     packages=find_packages('.', exclude=['examples*', 'test*']),
-    #tests_require=['nose >= 0.11', 'mock'],
-    #test_suite="nose.collector",
-    zip_safe=False,
+    tests_require=['nose2'],
+    test_suite="nose2.collector.collector",
+    zip_safe=True,
     install_requires=[
         'peppercorn',
-        'markupsafe',
         'eor-htmlgen'
     ]
 )
