@@ -14,7 +14,7 @@ from .validators import (
     Email
 )
 from .render import (
-    Input,
+    Input, Textarea,
     Checkbox, CheckBoxes,
     Select, MultiSelect
 )
