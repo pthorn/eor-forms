@@ -9,6 +9,7 @@ import peppercorn
 
 from .container import Mapping
 from .empty import empty
+from eor_htmlgen import Tag
 
 
 class Form(Mapping):
@@ -23,12 +24,12 @@ class Form(Mapping):
     def render_csrf_field(self):
         """
         <form>
-            ${c.form.render_csrf_field() | n}
+            ${c.form.render_csrf_field()}
         </form
         Note: will throw an exception if request was not passed to the constructor
         """
         token = self._request.session.get_csrf_token()
-        return '<input type="hidden" name="csrf_token" value="%s">' % token  # TODO use eor-htmlgen!
+        return Tag('input', name="csrf_token", value=token, type="hidden").render()
 
     def from_request(self):
         """
